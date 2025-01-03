@@ -1,20 +1,28 @@
-import { ChevronRightIcon } from "lucide-react";
+import { ChevronRightIcon, TrashIcon } from "lucide-react";
 
-function Tasks(props) {
+function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
   return (
-    <ul className="space-y-4 p-6 bg-slate-200 rounded-md shadow">
-      {props.tasks.map((task) => (
-        <li key={task.id} className="flex gap-2">
+    <ul className="space-y-4 p-6 bg-rose-100  rounded-md shadow">
+      {tasks.map((task) => (
+        <li key={task.id} className="flex gap-2 group ">
           <button
-            onClick={() => props.onTaskClick(task.id)}
-            className="bg-slate-400 text-left w-full text-white p-2 rounded-md"
+            onClick={() => onTaskClick(task.id)}
+            className={`bg-rose-300 group-hover:bg-rose-400 text-left w-full font-semibold text-rose-700 p-2 rounded-md transition duration-200 ease-in-out ${
+              task.isCompleted && "line-through"
+            }`}
           >
             {task.title}
-            {task.isCompleted ? "COMPLETE" : "INCOMPLETE"}
           </button>
 
-          <button className="bg-slate-400 text-white p-2 rounded-md">
+          <button className="bg-rose-300 group-hover:bg-rose-400 text-rose-700 p-2 rounded-md transition duration-300 ease-in-out">
             <ChevronRightIcon />
+          </button>
+
+          <button
+            onClick={() => onDeleteTaskClick(task.id)}
+            className="bg-rose-300 group-hover:bg-rose-400 text-rose-700 p-2 rounded-md transition duration-300 ease-in-out"
+          >
+            <TrashIcon />
           </button>
         </li>
       ))}
