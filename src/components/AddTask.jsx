@@ -29,7 +29,7 @@ function AddTask({ onAddTaskSubmit }) {
           setTitle("");
           setDescription("");
         }}
-        className="bg-rose-400 hover:bg-rose-500 text-rose-700 p-2 rounded-md transition duration-300 ease-in-out"
+        className="bg-rose-400 hover:bg-rose-500  font-semibold text-white p-2 rounded-md transition duration-300 ease-in-out"
       >
         Adicionar tarefa
       </button>

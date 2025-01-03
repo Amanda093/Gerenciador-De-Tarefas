@@ -1,53 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddTask from "./components/AddTask";
 import Tasks from "./components/Tasks";
 import Title from "./components/Title";
-import { IdGenerate } from "uuid";
-import "./index.css"; // Ajuste o caminho se necessário
+import { v4 } from "uuid";
+import "./index.css";
 
 function App() {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Estudar",
-      description: "Estudar 8 horas por dia",
-      isCompleted: false,
-    },
-    {
-      id: 2,
-      title: "Estudar matematica",
-      description: "Estudar 8 horas por dia",
-      isCompleted: false,
-    },
-    {
-      id: 3,
-      title: "Estudar ingles",
-      description: "Estudar 8 horas por dia",
-      isCompleted: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem("tasks")) || []
+  );
+
+  // Sempre que o valor da lista for alterado o valor da função será atualizado
+  useEffect(() => {
+    // convertendo a lista task para String
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   function onTaskClick(taskId) {
     const newTasks = tasks.map((task) => {
-      // PRECISO ATUALIZAR ESSA TAREFA
+      // Preciso atualizar a tarefa
       if (task.id === taskId) {
         return { ...task, isCompleted: !task.isCompleted };
       }
 
-      // NÃO PRECISO ATUALIZAR ESSA TAREFA
+      // Não preciso atualizar a tarefa
       return task;
     });
     setTasks(newTasks);
   }
 
+  // Deleta uma tarefa
   function onDeleteTaskClick(taskId) {
     const newTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(newTasks);
   }
 
+  // Adiciona uma nova tarefa
   function onAddTaskSubmit(title, description) {
     const newTask = {
-      id: IdGenerate(),
+      id: v4(),
       title,
       description,
       isCompleted: false,
@@ -56,7 +47,7 @@ function App() {
   }
 
   return (
-    <div className="w-screen h-screen bg-rose-20 flex justify-center p-6">
+    <div className="w-screen h-screen bg-rose-20 flex justify-center p-6 flex flex-auto">
       <div className="w-[500px] space-y-5">
         <Title>Gerenciador de Tarefas</Title>
         <AddTask onAddTaskSubmit={onAddTaskSubmit} />

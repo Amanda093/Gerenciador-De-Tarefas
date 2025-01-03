@@ -1,6 +1,17 @@
 import { ChevronRightIcon, TrashIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
+  const navigate = useNavigate();
+
+  // Vai para a página "TaskPage"
+  function onSeeDetailsClick(task) {
+    const query = new URLSearchParams();
+    query.set("title", task.title);
+    query.set("description", task.description);
+    navigate(`/task?title=${task.title}&description=${task.description}`);
+  }
+
   return (
     <ul className="space-y-4 p-6 bg-rose-100  rounded-md shadow">
       {tasks.map((task) => (
@@ -14,7 +25,10 @@ function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
             {task.title}
           </button>
 
-          <button className="bg-rose-300 group-hover:bg-rose-400 text-rose-700 p-2 rounded-md transition duration-300 ease-in-out">
+          <button
+            onClick={() => onSeeDetailsClick(task)}
+            className="bg-rose-300 group-hover:bg-rose-400 text-rose-700 p-2 rounded-md transition duration-300 ease-in-out"
+          >
             <ChevronRightIcon />
           </button>
 
