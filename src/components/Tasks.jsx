@@ -1,4 +1,4 @@
-import { ChevronRightIcon, TrashIcon } from "lucide-react";
+import { CheckIcon, ChevronRightIcon, TrashIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
@@ -18,23 +18,24 @@ function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
         <li key={task.id} className="flex gap-2 group ">
           <button
             onClick={() => onTaskClick(task.id)}
-            className={`bg-rose-300 group-hover:bg-rose-400 text-left w-full font-semibold text-rose-700 p-2 rounded-md transition duration-200 ease-in-out ${
+            className={`bg-rose-300 group-hover:bg-rose-400 group-hover:text-white text-left w-full font-semibold text-rose-700 p-2 rounded-md flex transition duration-200 ease-in-out ${
               task.isCompleted && "line-through"
             }`}
           >
+            {task.isCompleted && <CheckIcon />}
             {task.title}
           </button>
 
           <button
             onClick={() => onSeeDetailsClick(task)}
-            className="bg-rose-300 group-hover:bg-rose-400 text-rose-700 p-2 rounded-md transition duration-300 ease-in-out"
+            className="bg-rose-300 group-hover:bg-rose-400 group-hover:text-white text-rose-700 p-2 rounded-md transition duration-300 ease-in-out"
           >
             <ChevronRightIcon />
           </button>
 
           <button
             onClick={() => onDeleteTaskClick(task.id)}
-            className="bg-rose-300 group-hover:bg-rose-400 text-rose-700 p-2 rounded-md transition duration-300 ease-in-out"
+            className="bg-rose-300 group-hover:bg-rose-400 group-hover:text-white text-rose-700 p-2 rounded-md transition duration-300 ease-in-out"
           >
             <TrashIcon />
           </button>
