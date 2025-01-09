@@ -5,7 +5,7 @@ function AddTask({ onAddTaskSubmit }) {
   const [description, setDescription] = useState("");
 
   return (
-    <div className="space-y-4 p-6 bg-rose-100  rounded-md shadow flex flex-col">
+    <div className="space-y-4 p-6 bg-rose-200 rounded-md shadow flex flex-col">
       <input
         type="text"
         value={title}
@@ -36,4 +36,5 @@ function AddTask({ onAddTaskSubmit }) {
     </div>
   );
 }
+
 export default AddTask;
